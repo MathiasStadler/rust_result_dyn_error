@@ -51,7 +51,7 @@ pub fn init_logger() {
 }
 
 #[allow(dead_code)]
-fn main() {
+fn test_case() {
     init_logger();
     error!("a log got a error");
     warn!(" a log got a warning");
@@ -61,10 +61,15 @@ fn main() {
 }
 
 #[allow(dead_code)]
-pub fn error(log_entry: &str) {
-    error!("{}", log_entry);
+fn main() {
+    test_case();
+    // empty
 }
 
+#[allow(dead_code)]
+pub fn error(log_entry: &str) -> (){
+    error!("{}", log_entry)
+}
 
 #[allow(dead_code)]
 pub fn warn(log_entry: &str) {
@@ -85,6 +90,19 @@ pub fn debug(log_entry: &str) {
 pub fn trace(log_entry: &str) {
     trace!("{}", log_entry);
 }
+
+//test
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    // use super::*;
+
+    #[test]
+    fn test_add() {
+        assert_eq!("error", super::error("error"));
+    }
+}
+
 /*
 cargo run --example custom_default_format
 cargo fmt
