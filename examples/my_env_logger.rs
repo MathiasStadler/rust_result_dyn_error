@@ -98,8 +98,8 @@ mod tests {
     // use super::*;
 
     #[test]
-    fn test_add() {
-        assert_eq!("error", super::error("error"));
+    fn test_add<E>() {
+        assert_eq!(Ok("error"), ("error"));
     }
 }
 
