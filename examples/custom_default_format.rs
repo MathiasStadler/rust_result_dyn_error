@@ -35,7 +35,7 @@ fn init_logger() {
 
     let _from_env = &mut Builder::from_env(env);
 
-    //env_logger::Builder::new()
+    
     _from_env
         .format(|buf, record| {
             writeln!(
