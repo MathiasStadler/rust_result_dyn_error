@@ -1,7 +1,5 @@
-
 // FROM HERE
 // https://raw.githubusercontent.com/rust-cli/env_logger/main/examples/custom_default_format.rs
-
 
 /*!
 Disabling parts of the default format.
@@ -23,6 +21,8 @@ If you want to control the logging output completely, see the `custom_logger` ex
 */
 
 use log::info;
+use log::LevelFilter;
+use std::io::Write;
 
 use env_logger::{Builder, Env};
 
@@ -32,13 +32,27 @@ use env_logger::{Builder, Env};
 
 fn init_logger() {
     let env = Env::default()
-        .filter("MY_LOG_LEVEL")
-        .write_style("MY_LOG_STYLE");
+        .filter_or("MY_LOG_LEVEL", "trace")
+        .write_style_or("MY_LOG_STYLE", "always");
 
-    Builder::from_env(env)
-        .format_level(false)
-        .format_timestamp_secs()
+    let _from_env = &mut Builder::from_env(env);
+
+    //env_logger::Builder::new()
+      _from_env
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "{}:{} {} [{}] - {}",
+                record.file().unwrap_or("unknown"),
+                record.line().unwrap_or(0),
+                chrono::Local::now().format("%Y-%m-%dT%H:%M:%S"),
+                record.level(),
+                record.args()
+            )
+        })
+        .filter(Some("logger_example"), LevelFilter::Debug)
         .init();
+    
 }
 
 fn main() {
