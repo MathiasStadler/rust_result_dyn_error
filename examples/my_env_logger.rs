@@ -50,6 +50,7 @@ pub fn init_logger() {
         .init();
 }
 
+#[allow(dead_code)]
 fn main() {
     init_logger();
     error!("a log got a error");
@@ -59,7 +60,33 @@ fn main() {
     trace!("a log got a trace");
 }
 
+#[allow(dead_code)]
+pub fn error(log_entry: &str) {
+    error!("{}", log_entry);
+}
+
+
+#[allow(dead_code)]
+pub fn warn(log_entry: &str) {
+    warn!("{}", log_entry);
+}
+
+#[allow(dead_code)]
+pub fn info(log_entry: &str) {
+    info!("{}", log_entry);
+}
+
+#[allow(dead_code)]
+pub fn debug(log_entry: &str) {
+    debug!("{}", log_entry);
+}
+
+#[allow(dead_code)]
+pub fn trace(log_entry: &str) {
+    trace!("{}", log_entry);
+}
 /*
 cargo run --example custom_default_format
 cargo fmt
+MY_LOG_LEVEL='trace' cargo run --example my_env_logger
 */
