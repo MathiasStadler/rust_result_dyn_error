@@ -31,11 +31,9 @@ fn init_logger() {
     let env = Env::default()
         .filter_or("MY_LOG_LEVEL", "trace")
         .write_style_or("MY_LOG_STYLE", LOG_STYLE);
-    
 
     let _from_env = &mut Builder::from_env(env);
 
-    
     _from_env
         .format(|buf, record| {
             writeln!(
@@ -60,3 +58,6 @@ fn main() {
     debug!("a log got a debug");
     trace!("a log got a trace");
 }
+
+// cargo run --example custom_default_format
+// cargo fmt
