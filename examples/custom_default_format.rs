@@ -59,5 +59,7 @@ fn main() {
     trace!("a log got a trace");
 }
 
-// cargo run --example custom_default_format
-// cargo fmt
+/*
+cargo run --example custom_default_format
+cargo fmt
+*/
