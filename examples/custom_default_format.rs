@@ -20,25 +20,23 @@ $ export MY_LOG_STYLE=never
 If you want to control the logging output completely, see the `custom_logger` example.
 */
 
-use log::info;
 use log::LevelFilter;
+use log::{debug, error, info, trace, warn};
 use std::io::Write;
 
 use env_logger::{Builder, Env};
 
-//use env_logger::Env;
-
-// env_logger::Builder::from_env(Env::default().default_filter_or("warn")).init();
-
 fn init_logger() {
+    const LOG_STYLE: &str = r#"auto"#;
     let env = Env::default()
         .filter_or("MY_LOG_LEVEL", "trace")
-        .write_style_or("MY_LOG_STYLE", "always");
+        .write_style_or("MY_LOG_STYLE", LOG_STYLE);
+    
 
     let _from_env = &mut Builder::from_env(env);
 
     //env_logger::Builder::new()
-      _from_env
+    _from_env
         .format(|buf, record| {
             writeln!(
                 buf,
@@ -52,11 +50,13 @@ fn init_logger() {
         })
         .filter(Some("logger_example"), LevelFilter::Debug)
         .init();
-    
 }
 
 fn main() {
     init_logger();
-
-    info!("a log from `MyLogger`");
+    error!("a log got a error");
+    warn!(" a log got a warning");
+    info!(" a log got a info");
+    debug!("a log got a debug");
+    trace!("a log got a trace");
 }
