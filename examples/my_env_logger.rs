@@ -67,7 +67,7 @@ fn main() {
 }
 
 #[allow(dead_code)]
-pub fn error(log_entry: &str) -> () {
+pub fn error(log_entry: &str)  {
     error!("{}", log_entry)
 }
 
@@ -107,9 +107,9 @@ mod tests {
     #[cfg(test)]
     mod tests {
 
-        use log::error;
+        //use log::error;
 
-        use super::*;
+        use super::error;
 
         #[test]
         fn result_test_ok() -> Result<(),E> {
@@ -117,7 +117,7 @@ mod tests {
             // If some_fn() is `Err`, then the test will
             // fail at this line.
 
-            let test_result = error!("Error");
+            let test_result = error("Error");
 
             let result= match test_result {
                 Ok(result) => println!(" {:?}" ,result ),
