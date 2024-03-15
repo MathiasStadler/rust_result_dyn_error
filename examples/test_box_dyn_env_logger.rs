@@ -4,6 +4,40 @@
 use std::error::Error;
 use std::fmt;
 
+#[allow(unused_imports)]
+use env_logger::{Builder, Env};
+#[allow(unused_imports)]
+use log::LevelFilter;
+#[allow(unused_imports)]
+use log::{debug, error, info, trace, warn};
+#[allow(unused_imports)]
+use std::io::Write;
+
+pub fn init_logger() {
+    const LOG_STYLE: &str = r#"auto"#;
+    let env = Env::default()
+        .filter_or("MY_LOG_LEVEL", "trace")
+        .write_style_or("MY_LOG_STYLE", LOG_STYLE);
+
+    let _from_env = &mut Builder::from_env(env);
+
+    _from_env
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "{}:{} {} [{}] - {}",
+                record.file().unwrap_or("unknown"),
+                record.line().unwrap_or(0),
+                chrono::Local::now().format("%Y-%m-%dT%H:%M:%S"),
+                record.level(),
+                record.args()
+            )
+        })
+        .filter(Some("logger_example"), LevelFilter::Debug)
+        .init();
+}
+
+
 #[derive(Debug)]
 struct StrError<'a>(&'a str);
 
@@ -41,7 +75,7 @@ fn main() {
     let foo_result_err: Result<String, Box<dyn Error>> = foo_result_err();
 
     #[allow(unused_variables)]
-    let result: () = match foo_result_err {
+    match foo_result_err {
         Ok(result) => println!(" {:?}", result),
         Err(error) => panic!("Err => {:?}", error),
     };
