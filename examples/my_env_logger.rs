@@ -67,7 +67,7 @@ fn main() {
 }
 
 #[allow(dead_code)]
-pub fn error(log_entry: &str) -> (){
+pub fn error(log_entry: &str) -> () {
     error!("{}", log_entry)
 }
 
@@ -97,14 +97,40 @@ mod tests {
     // Note this useful idiom: importing names from outer (for mod tests) scope.
     // use super::*;
 
+    /// .
     #[test]
-    fn test_add<E>() {
-        assert_eq!(Ok("error"), ("error"));
+    fn test_first() {
+        assert_eq!(true, true);
+        assert_eq!(0, 0);
+    }
+
+    #[cfg(test)]
+    mod tests {
+
+        use log::error;
+
+        use super::*;
+
+        #[test]
+        fn result_test_ok() -> Result<(),E> {
+            // We can use question mark instead of unwrap.
+            // If some_fn() is `Err`, then the test will
+            // fail at this line.
+
+            let test_result = error!("Error");
+
+            let result= match test_result {
+                Ok(result) => println!(" {:?}" ,result ),
+                Err(error) => panic!("Err => {:?}", error),
+            };
+            
+        }
     }
 }
 
 /*
-cargo run --example custom_default_format
+cargo run --example my_env_logger
 cargo fmt
 MY_LOG_LEVEL='trace' cargo run --example my_env_logger
+cargo test --example my_env_logger
 */
