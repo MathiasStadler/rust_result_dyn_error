@@ -66,7 +66,7 @@ fn main() {
     let foo_result_ok: Result<String, Box<dyn Error>> = foo_result_ok();
 
     #[allow(unused_variables)]
-    let result: () = match foo_result_ok {
+    match foo_result_ok {
         Ok(result) => println!("Ok => {:?}", result),
         Err(error) => panic!("Err => {:?}", error),
     };
