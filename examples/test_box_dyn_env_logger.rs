@@ -4,6 +4,9 @@
 use std::error::Error;
 use std::fmt;
 
+mod my_env_logger;
+use my_env_logger::*;
+
 #[allow(unused_imports)]
 use env_logger::{Builder, Env};
 #[allow(unused_imports)]
@@ -37,7 +40,6 @@ pub fn init_logger() {
         .init();
 }
 
-
 #[derive(Debug)]
 struct StrError<'a>(&'a str);
 
@@ -54,14 +56,38 @@ impl<'a> fmt::Display for StrError<'a> {
 
 #[allow(dead_code)]
 fn foo_result_ok() -> Result<String, Box<dyn Error>> {
-    Ok("Ok ...".to_string())
+    Ok("Ok ...foo_result_ok ".to_string())
 }
 
 fn foo_result_err() -> Result<String, Box<dyn Error>> {
-    Err(Box::new(StrError("Error...")))
+    Err(Box::new(StrError("Error ...foo_result_err")))
+}
+
+// #[allow(dead_code)]
+// fn test_case() {
+//     init_logger();
+//     error!("a log got a error");
+//     warn!(" a log got a warning");
+//     info!(" a log got a info");
+//     debug!("a log got a debug");
+//     trace!("a log got a trace");
+// }
+
+#[allow(dead_code)]
+fn test_env_logger() {
+    my_env_logger::init_logger();
+    // init_logger();
+    my_env_logger::error("a log got a error");
+    my_env_logger::warn(" a log got a warning");
+    my_env_logger::info(" a log got a info");
+    my_env_logger::debug("a log got a debug");
+    my_env_logger::trace("a log got a trace");
 }
 
 fn main() {
+    // test_case();
+    test_env_logger();
+
     #[allow(unused_variables)]
     let foo_result_ok: Result<String, Box<dyn Error>> = foo_result_ok();
 
@@ -104,10 +130,9 @@ mod tests {
 
     #[test]
     fn result_test_err() -> Result<(), Box<dyn Error>> {
-
         #[allow(unused_variables)]
         let foo_result_err: Result<String, Box<dyn Error>> = foo_result_err();
-    
+
         #[allow(unused_variables)]
         let result: () = match foo_result_err {
             Ok(result) => println!(" {:?}", result),
@@ -115,7 +140,6 @@ mod tests {
         };
 
         Ok(result)
-
     }
 }
 
