@@ -67,7 +67,7 @@ fn main() {
 }
 
 #[allow(dead_code)]
-pub fn error(log_entry: &str)  {
+pub fn error(log_entry: &str) {
     error!("{}", log_entry)
 }
 
@@ -112,18 +112,17 @@ mod tests {
         use super::error;
 
         #[test]
-        fn result_test_ok() -> Result<(),E> {
+        fn result_test_ok() -> Result<(), E> {
             // We can use question mark instead of unwrap.
             // If some_fn() is `Err`, then the test will
             // fail at this line.
 
             let test_result = error("Error");
 
-            let result= match test_result {
-                Ok(result) => println!(" {:?}" ,result ),
+            let result = match test_result {
+                Ok(result) => println!(" {:?}", result),
                 Err(error) => panic!("Err => {:?}", error),
             };
-            
         }
     }
 }

@@ -70,10 +70,9 @@ mod tests {
 
     #[test]
     fn result_test_err() -> Result<(), Box<dyn Error>> {
-
         #[allow(unused_variables)]
         let foo_result_err: Result<String, Box<dyn Error>> = foo_result_err();
-    
+
         #[allow(unused_variables)]
         let result: () = match foo_result_err {
             Ok(result) => println!(" {:?}", result),
@@ -81,7 +80,6 @@ mod tests {
         };
 
         Ok(result)
-
     }
 }
 
