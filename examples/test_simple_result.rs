@@ -37,12 +37,16 @@ mod tests {
 
     #[test]
     fn result_test_err() -> Result<(), String> {
-        // We can use question mark instead of unwrap.
-        // If some_fn() is `Err`, then the test will
-        // fail at this line.
+        
+        /*
+        fn is_err_and()
+        Returns true if the result is Err and the value inside of it matches a predicate.
+        https://doc.rust-lang.org/std/result/enum.Result.html
+        */
 
         let is_ok = some_fn_err()?;
 
+        
         if is_ok {
             Ok(())
         } else {
