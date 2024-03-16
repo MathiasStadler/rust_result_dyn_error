@@ -5,7 +5,7 @@ use std::error::Error;
 use std::fmt;
 
 mod my_env_logger;
-use my_env_logger::*;
+// use my_env_logger::*;
 
 #[allow(unused_imports)]
 use env_logger::{Builder, Env};
