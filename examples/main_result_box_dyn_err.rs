@@ -50,4 +50,4 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-// cargo run --example main_resullt_box_dyn_err
+// cargo run --example main_result_box_dyn_err
